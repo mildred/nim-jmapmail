@@ -12,4 +12,4 @@ bin           = @["jmapmail"]
 
 requires "nim >= 1.4.8"
 requires "fidget"
-requires "ndns"
+requires "resolv"
