@@ -1,4 +1,5 @@
 import fidget, vmath
+import asyncfutures
 import ./style
 
 proc labelText*() =
@@ -44,4 +45,11 @@ proc button*(btnText: string) =
     font fSans, 12, fNormalWeight, 0, hCenter, vTop
     characters btnText
 
+proc refreshCallback() =
+  echo "refreshCallback"
+  fidget.refresh()
+
+proc refreshAfter*[T](future: Future[T]): Future[T] =
+  future.addCallback(refreshCallback)
+  return future
 

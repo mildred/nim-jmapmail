@@ -1,4 +1,5 @@
 import fidget, vmath
+import asyncfutures
 
 import style
 import common
@@ -35,5 +36,5 @@ proc loginForm*(v: View) =
         box 140, 110, 100, 30
         button("Login")
         onClick:
-          login(v.account.login)
+          asyncCheck refreshAfter(login(v.config, v.account))
           v.login_progress = true

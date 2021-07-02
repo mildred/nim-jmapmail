@@ -1,4 +1,4 @@
-import strformat
+import strformat, strutils
 import resolv
 import random
 
@@ -26,4 +26,11 @@ proc query_dns_jmap*(domain: string) : RDataSRV =
       result = RDataSRV(ans.rdata)
       selected = selected - int(RDataSRV(ans.rdata).weight)
       if selected <= 0: return
+
+proc email_to_jmap_url*(email: string): string =
+  let parts = rsplit(email, '@')
+  let domain = parts[1]
+  echo domain
+  let srv = query_dns_jmap(domain)
+  result = &"https://{srv.target}:{srv.port}/.well-known/jmap"
 

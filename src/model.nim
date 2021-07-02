@@ -1,9 +1,18 @@
+import jmap/transport
 
-type Account* = object
-  login*: string
-  password*: string
+type
+  Config* = ref object
+    account*: ConfigAccount
 
-type View* = ref object
-  account*: Account
-  login*: bool
-  login_progress*: bool
+  ConfigAccount* = object of RootObj
+    login*: string
+    password*: string
+
+  Account* = ref object of ConfigAccount
+    transport*: Transport
+
+  View* = ref object
+    config*: Config
+    account*: Account
+    login*: bool
+    login_progress*: bool
